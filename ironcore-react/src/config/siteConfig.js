@@ -5,7 +5,7 @@ export const siteConfig = {
     title: "Manish Kumar Mawatwal - Senior AI/Software Engineer",
     description: "Senior AI/Software Engineer Portfolio - Personal projects, blog posts, and professional achievements",
     author: "Manish Kumar Mawatwal",
-    email: "manishkumarmawatwal@gmail.com",
+    email: "manish.mawat@gmail.com",
     location: "Toronto, Canada",
     year: "2024"
   },
@@ -38,12 +38,12 @@ export const siteConfig = {
     socialLinks: [
       { 
         name: 'LinkedIn', 
-        url: 'https://linkedin.com/in/manishkumarmawatwal', 
+        url: 'https://www.linkedin.com/in/manish-kumar-mawatwal', 
         icon: 'Linkedin' 
       },
       { 
         name: 'GitHub', 
-        url: 'https://github.com/manishkumarmawatwal', 
+        url: 'https://github.com/manishmawat', 
         icon: 'Github' 
       },
       { 
@@ -53,11 +53,11 @@ export const siteConfig = {
       },
       { 
         name: 'LeetCode', 
-        url: 'https://leetcode.com/yourusername', 
+        url: 'https://leetcode.com/u/ironage/', 
         icon: 'Code' 
       }
     ],
-    copyrightText: "© 2024 Manish Kumar Mawatwal. All rights reserved."
+    copyrightText: "© 2025 Manish Kumar Mawatwal. All rights reserved."
   },
 
   // Hero section
