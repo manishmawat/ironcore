@@ -1,0 +1,60 @@
+# Jekyll configuration for GitHub Pages
+title: IronCore
+description: IronCore - AI and Machine Learning Solutions
+baseurl: "/ironcore"
+url: "https://manishmawat.github.io"
+
+# Build settings
+source: .
+destination: _site
+plugins:
+  - jekyll-github-metadata
+  - jekyll-seo-tag
+
+# Exclude React source files from Jekyll processing
+exclude:
+  - node_modules/
+  - src/
+  - package.json
+  - package-lock.json
+  - vite.config.ts
+  - tsconfig*.json
+  - eslint.config.js
+  - .gitignore
+  - .gitattributes
+  - README.md
+  - BLOG_SYSTEM.md
+  - COMPONENT_USAGE.md
+  - LICENSE
+
+# Include only the built files
+include:
+  - dist/
+  - public/
+  - index.html
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Manish Mawatwal"
+
+# Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Sass settings
+sass:
+  sass_dir: assets/css
+  style: compressed

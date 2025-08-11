@@ -1,0 +1,2 @@
+# This file tells GitHub Pages not to process this directory with Jekyll
+# Since this is a React SPA, we don't need Jekyll templating
