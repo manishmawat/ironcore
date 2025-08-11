@@ -38,7 +38,7 @@ function App() {
   );
 
   return (
-    <Router>
+    <Router basename="/ironcore">
       <Routes>
         {/* Main page route */}
         <Route 
@@ -85,9 +85,6 @@ function App() {
           element={
             <Layout 
               headerProps={{
-                onNavClick: handleNavClick,
-              }}
-              footerProps={{
                 onLinkClick: handleFooterLinkClick,
               }}
             >
@@ -98,7 +95,7 @@ function App() {
 
         {/* Catch-all route for any other blog posts */}
         <Route 
-          path="/blog/:postId" 
+          path="/blog/:slug" 
           element={
             <Layout 
               headerProps={{
@@ -108,12 +105,32 @@ function App() {
                 onLinkClick: handleFooterLinkClick,
               }}
             >
-              <div className="container">
-                <div className="blog-post">
-                  <h1>Blog Post Not Found</h1>
-                  <p>The blog post you're looking for doesn't exist.</p>
-                  <a href="/blog" className="btn btn-primary">Back to Blog</a>
-                </div>
+              <BlogList />
+            </Layout>
+          } 
+        />
+
+        {/* 404 route */}
+        <Route 
+          path="*" 
+          element={
+            <Layout 
+              headerProps={{
+                onNavClick: handleNavClick,
+              }}
+              footerProps={{
+                onLinkClick: handleFooterLinkClick,
+              }}
+            >
+              <div className="container mx-auto px-4 py-16 text-center">
+                <h1 className="text-4xl font-bold text-gray-800 mb-4">404 - Page Not Found</h1>
+                <p className="text-gray-600 mb-8">The page you're looking for doesn't exist.</p>
+                <a 
+                  href="/ironcore" 
+                  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Go Home
+                </a>
               </div>
             </Layout>
           } 
