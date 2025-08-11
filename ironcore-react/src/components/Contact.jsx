@@ -52,7 +52,7 @@ const Contact = () => {
             <div className="contact-details">
               <div className="contact-item">
                 <Mail size={20} />
-                <span>manishkumarmawatwal@gmail.com</span>
+                <span>manish.mawat@gmail.com</span>
               </div>
               <div className="contact-item">
                 <MapPin size={20} />

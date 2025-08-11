@@ -8,6 +8,7 @@ import Projects from './components/Projects';
 import Blog from './components/Blog';
 import Contact from './components/Contact';
 import BlogList from './pages/blog/BlogList';
+import BlogPostPage from './pages/blog/[slug]';
 import BuildingScalableAISystems from './pages/blog/posts/building-scalable-ai-systems';
 import MLDeploymentStrategies from './pages/blog/posts/ml-deployment-strategies';
 import './styles.css';
@@ -105,7 +106,7 @@ function App() {
                 onLinkClick: handleFooterLinkClick,
               }}
             >
-              <BlogList />
+              <BlogPostPage />
             </Layout>
           } 
         />
