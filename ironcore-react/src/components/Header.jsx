@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { siteConfig } from '../config/siteConfig';
 
 const Header = ({ 
-  logoText = "Manish Kumar Mawatwal",
-  logoIcon = "fas fa-code",
-  navItems = [
-    { id: 'home', label: 'Home', href: '#home' },
-    { id: 'about', label: 'About', href: '#about' },
-    { id: 'skills', label: 'Skills', href: '#skills' },
-    { id: 'projects', label: 'Projects', href: '#projects' },
-    { id: 'blog', label: 'Blog', href: '#blog' },
-    { id: 'contact', label: 'Contact', href: '#contact' }
-  ],
+  logoText = siteConfig.header.logoText,
+  logoIcon = siteConfig.header.logoIcon,
+  navItems = siteConfig.header.navItems,
   className = "",
   onNavClick = null
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Check if we're on the home page
+  const isHomePage = location.pathname === '/' || location.pathname === '/ironcore';
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -28,17 +28,33 @@ const Header = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Smooth scroll to section
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsMenuOpen(false); // Close mobile menu
-      
-      // Call custom navigation handler if provided
-      if (onNavClick) {
-        onNavClick(sectionId);
+  // Handle navigation based on current page
+  const handleNavigation = (sectionId) => {
+    if (isHomePage) {
+      // On home page, use smooth scrolling
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setIsMenuOpen(false); // Close mobile menu
+        
+        // Call custom navigation handler if provided
+        if (onNavClick) {
+          onNavClick(sectionId);
+        }
       }
+    } else {
+      // On other pages, navigate to home page with hash
+      navigate('/', { state: { scrollTo: sectionId } });
+    }
+  };
+
+  // Handle logo click
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (isHomePage) {
+      handleNavigation('home');
+    } else {
+      navigate('/');
     }
   };
 
@@ -47,7 +63,7 @@ const Header = ({
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <div className="nav-logo">
-            <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
+            <a href="#home" onClick={handleLogoClick}>
               <i className={logoIcon}></i>
               <span>{logoText}</span>
             </a>
@@ -60,7 +76,7 @@ const Header = ({
                   href={item.href} 
                   onClick={(e) => { 
                     e.preventDefault(); 
-                    scrollToSection(item.id); 
+                    handleNavigation(item.id); 
                   }} 
                   className="nav-link"
                 >

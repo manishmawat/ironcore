@@ -1,17 +1,16 @@
 import React from 'react';
 import { Brain } from 'lucide-react';
+import { siteConfig } from '../config/siteConfig';
 
 const About = () => {
   return (
     <section id="about" className="about">
       <div className="container">
-        <h2 className="section-title">About Me</h2>
+        <h2 className="section-title">{siteConfig.about.title}</h2>
         <div className="about-content">
           <div className="about-text">
             <p>
-              I'm a Senior AI/Software Engineer with over 10 years of experience in developing 
-              intelligent systems and scalable software solutions. I specialize in machine learning, 
-              artificial intelligence, and full-stack development.
+              {siteConfig.about.description}
             </p>
             <p>
               My expertise includes building AI-powered applications, designing scalable architectures, 
@@ -19,18 +18,12 @@ const About = () => {
               and contributing to open-source projects.
             </p>
             <div className="about-stats">
-              <div className="stat">
-                <h3>10+</h3>
-                <p>Years Experience</p>
-              </div>
-              <div className="stat">
-                <h3>50+</h3>
-                <p>Projects Completed</p>
-              </div>
-              <div className="stat">
-                <h3>10+</h3>
-                <p>Technologies</p>
-              </div>
+              {siteConfig.about.stats.map((stat, index) => (
+                <div key={index} className="stat">
+                  <h3>{stat.value}</h3>
+                  <p>{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
           <div className="about-image">

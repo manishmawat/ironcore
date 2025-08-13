@@ -11,6 +11,32 @@ export const blogConfig = {
   // Blog posts data
   posts: [
     {
+      id: "docker-tutorial",
+      title: "Docker Tutorial",
+      excerpt: "Learn Docker fundamentals and best practices for containerizing applications. From basic concepts to advanced deployment strategies.",
+      content: "docker-tutorial",
+      author: "Manish Kumar Mawatwal",
+      date: "August 11, 2025",
+      readTime: "8 min read",
+      tags: ["Docker", "DevOps", "Containers", "Deployment"],
+      featured: true,
+      image: "",
+      category: "DevOps"
+    },
+    {
+      id: "my-first-blog-post",
+      title: "My First Blog Post",
+      excerpt: "Write a brief description of your blog post here. This will appear in the blog list and search results.",
+      content: "my-first-blog-post",
+      author: "Manish Kumar Mawatwal",
+      date: "August 11, 2025",
+      readTime: "5 min read",
+      tags: ["AI", "Engineering"],
+      featured: true,
+      image: "",
+      category: "AI Engineering"
+    },
+    {
       id: "building-scalable-ai-systems",
       title: "Building Scalable AI Systems: Best Practices",
       excerpt: "Learn the essential principles and architectural patterns for building AI systems that can scale from prototype to production, handling real-world challenges and performance requirements.",
@@ -71,7 +97,8 @@ export const blogConfig = {
     "Deep Learning",
     "Industry Trends",
     "Best Practices",
-    "Tutorials"
+    "Tutorials",
+    "DevOps"
   ],
 
   // Blog tags
@@ -79,7 +106,8 @@ export const blogConfig = {
     "AI", "ML", "Deep Learning", "Neural Networks",
     "Architecture", "Scalability", "Deployment", "DevOps",
     "Production", "Performance", "Optimization",
-    "Best Practices", "Tutorials", "Industry Trends"
+    "Best Practices", "Tutorials", "Industry Trends",
+    "Docker", "Containers"
   ]
 };
 

@@ -1,52 +1,47 @@
 import React from 'react';
 import { Linkedin, Github, MessageSquare, Code } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { siteConfig } from '../config/siteConfig';
 
 const Footer = ({ 
-  name = "Manish Kumar Mawatwal",
-  description = "Senior AI/Software Engineer passionate about building intelligent systems and scalable solutions.",
-  quickLinks = [
-    { id: 'home', label: 'Home', href: '#home' },
-    { id: 'about', label: 'About', href: '#about' },
-    { id: 'projects', label: 'Projects', href: '#projects' },
-    { id: 'blog', label: 'Blog', href: '#blog' },
-    { id: 'contact', label: 'Contact', href: '#contact' }
-  ],
-  socialLinks = [
-    { 
-      name: 'LinkedIn', 
-      url: 'https://linkedin.com/in/manishkumarmawatwal', 
-      icon: Linkedin 
-    },
-    { 
-      name: 'GitHub', 
-      url: 'https://github.com/manishkumarmawatwal', 
-      icon: Github 
-    },
-    { 
-      name: 'Stack Overflow', 
-      url: 'https://stackoverflow.com/users/yourprofile', 
-      icon: MessageSquare 
-    },
-    { 
-      name: 'LeetCode', 
-      url: 'https://leetcode.com/yourusername', 
-      icon: Code 
-    }
-  ],
-  copyrightText = "© 2024 Manish Kumar Mawatwal. All rights reserved.",
+  name = siteConfig.footer.name,
+  description = siteConfig.footer.description,
+  quickLinks = siteConfig.footer.quickLinks,
+  socialLinks = siteConfig.footer.socialLinks,
+  copyrightText = siteConfig.footer.copyrightText,
   className = "",
   onLinkClick = null
 }) => {
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      
-      // Call custom link handler if provided
-      if (onLinkClick) {
-        onLinkClick(sectionId);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Check if we're on the home page
+  const isHomePage = location.pathname === '/' || location.pathname === '/ironcore';
+
+  const handleNavigation = (sectionId) => {
+    if (isHomePage) {
+      // On home page, use smooth scrolling
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Call custom link handler if provided
+        if (onLinkClick) {
+          onLinkClick(sectionId);
+        }
       }
+    } else {
+      // On other pages, navigate to home page with hash
+      navigate('/', { state: { scrollTo: sectionId } });
     }
+  };
+
+  // Icon mapping for social links
+  const iconMap = {
+    'Linkedin': Linkedin,
+    'Github': Github,
+    'MessageSquare': MessageSquare,
+    'Code': Code
   };
 
   return (
@@ -66,7 +61,7 @@ const Footer = ({
                     href={link.href} 
                     onClick={(e) => { 
                       e.preventDefault(); 
-                      scrollToSection(link.id); 
+                      handleNavigation(link.id); 
                     }}
                   >
                     {link.label}
@@ -79,7 +74,7 @@ const Footer = ({
             <h4>Connect</h4>
             <div className="footer-social">
               {socialLinks.map((social) => {
-                const IconComponent = social.icon;
+                const IconComponent = iconMap[social.icon];
                 return (
                   <a 
                     key={social.name}

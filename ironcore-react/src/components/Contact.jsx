@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Linkedin, Github, MessageSquare, Code } from 'lucide-react';
+import { siteConfig } from '../config/siteConfig';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -38,6 +39,14 @@ const Contact = () => {
     });
   };
 
+  // Icon mapping for social links
+  const iconMap = {
+    'Linkedin': Linkedin,
+    'Github': Github,
+    'MessageSquare': MessageSquare,
+    'Code': Code
+  };
+
   return (
     <section id="contact" className="contact">
       <div className="container">
@@ -52,26 +61,29 @@ const Contact = () => {
             <div className="contact-details">
               <div className="contact-item">
                 <Mail size={20} />
-                <span>manishkumarmawatwal@gmail.com</span>
+                <span>{siteConfig.site.email}</span>
               </div>
               <div className="contact-item">
                 <MapPin size={20} />
-                <span>Toronto, Canada</span>
+                <span>{siteConfig.site.location}</span>
               </div>
             </div>
             <div className="contact-social">
-              <a href="https://linkedin.com/in/manishkumarmawatwal" target="_blank" rel="noopener noreferrer" className="social-link">
-                <Linkedin size={20} />
-              </a>
-              <a href="https://github.com/manishkumarmawatwal" target="_blank" rel="noopener noreferrer" className="social-link">
-                <Github size={20} />
-              </a>
-              <a href="https://stackoverflow.com/users/yourprofile" target="_blank" rel="noopener noreferrer" className="social-link">
-                <MessageSquare size={20} />
-              </a>
-              <a href="https://leetcode.com/yourusername" target="_blank" rel="noopener noreferrer" className="social-link">
-                <Code size={20} />
-              </a>
+              {siteConfig.footer.socialLinks.map((social) => {
+                const IconComponent = iconMap[social.icon];
+                return (
+                  <a 
+                    key={social.name}
+                    href={social.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="social-link"
+                    title={social.name}
+                  >
+                    <IconComponent size={20} />
+                  </a>
+                );
+              })}
             </div>
           </div>
           <form className="contact-form" onSubmit={handleSubmit}>
