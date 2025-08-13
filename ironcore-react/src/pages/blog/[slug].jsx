@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useBlogPost } from '../../hooks/useBlog';
 import BlogPost from '../../components/BlogPost';
-import Layout from '../../components/Layout';
 
 const BlogPostPage = () => {
   const { slug } = useParams();
@@ -10,14 +9,12 @@ const BlogPostPage = () => {
 
   if (loading) {
     return (
-      <Layout>
-        <div className="container">
-          <div className="loading">
-            <h2>Loading...</h2>
-            <p>Please wait while we load your blog post.</p>
-          </div>
+      <div className="container">
+        <div className="loading">
+          <h2>Loading...</h2>
+          <p>Please wait while we load your blog post.</p>
         </div>
-      </Layout>
+      </div>
     );
   }
 
@@ -25,11 +22,7 @@ const BlogPostPage = () => {
     return <Navigate to="/blog" replace />;
   }
 
-  return (
-    <Layout>
-      <BlogPost post={post} content={content} />
-    </Layout>
-  );
+  return <BlogPost post={post} content={content} />;
 };
 
 export default BlogPostPage;

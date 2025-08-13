@@ -85,7 +85,18 @@ const AppRoutes = () => {
         {/* Blog listing page */}
         <Route 
           path="/blog" 
-          element={<BlogList />} 
+          element={
+            <Layout 
+              headerProps={{
+                onNavClick: handleNavClick,
+              }}
+              footerProps={{
+                onLinkClick: handleFooterLinkClick,
+              }}
+            >
+              <BlogList />
+            </Layout>
+          } 
         />
 
         {/* Individual blog post routes */}
