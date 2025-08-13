@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,7 +13,31 @@ import BuildingScalableAISystems from './pages/blog/posts/building-scalable-ai-s
 import MLDeploymentStrategies from './pages/blog/posts/ml-deployment-strategies';
 import './styles.css';
 
-function App() {
+// Component to handle scroll-to-section when navigating from other pages
+const ScrollHandler = ({ children }) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if we have a scroll target in the location state
+    if (location.state?.scrollTo) {
+      const sectionId = location.state.scrollTo;
+      // Use setTimeout to ensure the DOM is fully rendered
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [location]);
+
+  return children;
+};
+
+// Main App Routes component
+const AppRoutes = () => {
+  const navigate = useNavigate();
+
   // Custom navigation handler
   const handleNavClick = (sectionId) => {
     console.log(`Navigated to: ${sectionId}`);
@@ -39,7 +63,7 @@ function App() {
   );
 
   return (
-    <Router basename="/ironcore">
+    <ScrollHandler>
       <Routes>
         {/* Main page route */}
         <Route 
@@ -86,6 +110,9 @@ function App() {
           element={
             <Layout 
               headerProps={{
+                onNavClick: handleNavClick,
+              }}
+              footerProps={{
                 onLinkClick: handleFooterLinkClick,
               }}
             >
@@ -126,17 +153,25 @@ function App() {
               <div className="container mx-auto px-4 py-16 text-center">
                 <h1 className="text-4xl font-bold text-gray-800 mb-4">404 - Page Not Found</h1>
                 <p className="text-gray-600 mb-8">The page you're looking for doesn't exist.</p>
-                <a 
-                  href="/ironcore" 
+                <button 
+                  onClick={() => navigate('/')}
                   className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Go Home
-                </a>
+                </button>
               </div>
             </Layout>
           } 
         />
       </Routes>
+    </ScrollHandler>
+  );
+};
+
+function App() {
+  return (
+    <Router basename="/ironcore">
+      <AppRoutes />
     </Router>
   );
 }
